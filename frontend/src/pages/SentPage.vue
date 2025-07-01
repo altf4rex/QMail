@@ -13,6 +13,7 @@
       v-model:modelValue="showView"
       :email="store.currentEmail"
       @back="onBack"
+      @delete="onDelete"
     />
 
     <ComposeModal v-model:modelValue="showCompose" @save="onSaveDraft" />
@@ -48,6 +49,12 @@ function onSaveDraft(dto) {
 }
 
 function onBack() {
+  showView.value = false;
+}
+
+function onDelete() {
+  if (!store.currentEmail) return;
+  store.remove(store.currentEmail.id, "sent");
   showView.value = false;
 }
 
